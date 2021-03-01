@@ -1,9 +1,11 @@
 import React from "react";
 import { mount } from "enzyme";
+import { render, fireEvent, cleanup, screen } from "@testing-library/react";
 
 import Counter from "../components/Counter";
 
-describe("CounterFC", () => {
+//Enzyme
+describe("Counter Enzyme", () => {
   it("does not show range reached alert on initial load", () => {
     const wrapper = mount(<Counter />);
 
@@ -68,6 +70,78 @@ describe("CounterFC", () => {
 
       const counterValue = wrapper.find("[data-testid='counter-value']");
       expect(counterValue.text()).toEqual("0");
+    });
+  });
+});
+
+//React Testing Library
+
+describe("Counter", () => {
+  afterEach(cleanup);
+
+  it("does not show range reached alert on initial load", () => {
+    const { queryByText } = render(<Counter />);
+    expect(queryByText("Range limit reached!")).toBeNull();
+  });
+
+  it("shows range reached alert when reached limit by clicking control buttons", () => {
+    const { getByText } = render(<Counter min={0} max={1} />);
+
+    const incrementButton = getByText("+");
+    fireEvent.click(incrementButton);
+
+    expect(getByText("Range limit reached!")).toBeVisible();
+  });
+
+  describe("when incrementing counter is allowed", () => {
+    it("updates the counter value", () => {
+      const { getByTestId, getByText } = render(<Counter min={2} />);
+
+      const incrementButton = getByText("+");
+      fireEvent.click(incrementButton);
+
+      expect(getByTestId("counter-value").innerHTML).toEqual("3");
+    });
+  });
+
+  describe("when incrementing counter is not allowed", () => {
+    it("does not update the counter value", () => {
+      //My prefered way, using the Testing Playground extension
+      render(<Counter min={0} max={0} />);
+
+      const incrementButton = screen.getByRole("button", {
+        name: /\+/i
+      });
+      fireEvent.click(incrementButton);
+
+      //by using the data-testid="counter-value" property
+      const counterValue = screen.getByTestId("counter-value");
+
+      expect(counterValue.innerHTML).toEqual("0");
+    });
+  });
+
+  describe("when decrementing counter is allowed", () => {
+    it("updates the counter value", () => {
+      const { getByTestId, getByText } = render(<Counter />);
+
+      const incrementButton = getByText("+");
+      const decrementButton = getByText("-");
+      fireEvent.click(incrementButton);
+      fireEvent.click(decrementButton);
+
+      expect(getByTestId("counter-value").innerHTML).toEqual("0");
+    });
+  });
+
+  describe("when decrementing counter is not allowed", () => {
+    it("does not update the counter value", async () => {
+      const { getByTestId, getByText } = render(<Counter />);
+
+      const incrementButton = getByText("-");
+      fireEvent.click(incrementButton);
+
+      expect(getByTestId("counter-value").innerHTML).toEqual("0");
     });
   });
 });
