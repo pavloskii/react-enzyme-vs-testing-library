@@ -5,7 +5,7 @@ interface CounterProps {
   max?: number;
 }
 
-const CounterFC = ({ min = 0, max = 10 }: CounterProps) => {
+const Counter = ({ min = 0, max = 10 }: CounterProps) => {
   const [counter, setCounter] = React.useState(min);
   const [hasEdited, setHasEdited] = React.useState(false);
 
@@ -40,4 +40,4 @@ const CounterFC = ({ min = 0, max = 10 }: CounterProps) => {
   );
 };
 
-export default CounterFC;
+export default Counter;

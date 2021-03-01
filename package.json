@@ -3,13 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.9",
-    "@testing-library/react": "^11.2.5",
-    "@testing-library/user-event": "^12.8.0",
     "@types/jest": "^26.0.20",
     "@types/node": "^12.20.4",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
+    "jest-enzyme": "^7.1.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.3",
@@ -42,6 +40,7 @@
   "devDependencies": {
     "@types/enzyme": "^3.10.8",
     "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.4.1",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6"
   }
