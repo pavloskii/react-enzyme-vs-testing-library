@@ -15,21 +15,18 @@ const Counter = ({ min = 0, max = 10 }: CounterProps) => {
     }
   }, [counter, hasEdited, min]);
 
+  const increment = () => setCounter((counter) => counter + 1);
+  const decrement = () => setCounter((counter) => counter - 1);
+
   return (
     <div className="RangeCounter">
       <span className="RangeCounter__title">Counter (Function Comp)</span>
       <div className="RangeCounter__controls">
-        <button
-          disabled={counter <= min}
-          onClick={() => setCounter(counter - 1)}
-        >
+        <button disabled={counter <= min} onClick={decrement}>
           -
         </button>
         <span data-testid="counter-value">{counter}</span>
-        <button
-          disabled={counter >= max}
-          onClick={() => setCounter(counter + 1)}
-        >
+        <button disabled={counter >= max} onClick={increment}>
           +
         </button>
       </div>
