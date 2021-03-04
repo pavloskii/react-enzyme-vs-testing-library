@@ -56,54 +56,52 @@ describe("useCounter (RTL)", () => {
 });
 
 //Enzyme
+const setup = (counterProps?: Parameters<typeof useCounter>[0]) => {
+  let result: {
+    target: { count: number; increment: () => void; decrement: () => void };
+  };
+  const HookWrapper: React.FC = () => {
+    result.target = useCounter(counterProps);
+    return null;
+  };
+  const wrapper = mount(<HookWrapper />);
+
+  return { result: result!, wrapper };
+};
+
 describe("useCounter (Enzyme)", () => {
   it("exposes the count and increment/decrement functions", () => {
-    let result: { count: number; increment: () => void; decrement: () => void };
-    const HookWrapper: React.FC = () => {
-      result = useCounter();
-      return null;
-    };
-    mount(<HookWrapper />);
+    const { result } = setup();
 
-    expect(result.count).toBe(0);
+    expect(result.target.count).toBe(0);
 
-    _act(() => result.increment());
-    expect(result.count).toBe(1);
+    _act(() => result.target.increment());
+    expect(result.target.count).toBe(1);
 
-    _act(() => result.decrement());
-    expect(result.count).toBe(0);
+    _act(() => result.target.decrement());
+    expect(result.target.count).toBe(0);
   });
 
   it("allows customization of the initial count", () => {
-    let result: { count: number; increment: () => void; decrement: () => void };
-    const HookWrapper: React.FC = () => {
-      result = useCounter({ initialCount: 3 });
-      return null;
-    };
-    mount(<HookWrapper />);
+    const { result } = setup({ initialCount: 3 });
 
-    expect(result.count).toBe(3);
+    expect(result.target.count).toBe(3);
   });
 
   it("allows customization of the step", () => {
-    let result: { count: number; increment: () => void; decrement: () => void };
-    const HookWrapper: React.FC = () => {
-      result = useCounter({ step: 2 });
-      return null;
-    };
-    mount(<HookWrapper />);
+    const { result } = setup({ step: 2 });
 
-    expect(result.count).toBe(0);
+    expect(result.target.count).toBe(0);
 
-    _act(() => result.increment());
-    expect(result.count).toBe(2);
+    _act(() => result.target.increment());
+    expect(result.target.count).toBe(2);
 
-    _act(() => result.decrement());
-    expect(result.count).toBe(0);
+    _act(() => result.target.decrement());
+    expect(result.target.count).toBe(0);
   });
 
   it("the step can be changed", () => {
-    let result: { count: number; increment: () => void; decrement: () => void };
+    let result!: { count: number; increment: () => void; decrement: () => void };
     const HookWrapper: React.FC<{ step: number }> = ({ step }) => {
       result = useCounter({ step });
       return null;
@@ -142,7 +140,7 @@ function renderHookEnzyme<THookProps, THookReturn>(
 
   const rerender = (newProps: THookProps) => {
     wrapper.setProps(newProps);
-  }; 
+  };
 
   return { result, rerender };
 }
