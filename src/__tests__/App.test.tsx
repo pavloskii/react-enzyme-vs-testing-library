@@ -7,7 +7,7 @@ import App from "../App";
 
 //Enzyme
 describe("App input (enzyme)", () => {
-  it("does not show range reached alert on initial load", () => {
+  it("should be able to type in", () => {
     const wrapper = mount(<App />);
 
     const input = wrapper.find("input")
@@ -21,7 +21,7 @@ describe("App input (enzyme)", () => {
 
 //React Testing Library
 describe("App input (RTL)", () => {
-  it("does not show range reached alert on initial load", () => {
+  it("should be able to type in", () => {
     render(<App />);
 
     // const input = screen.getByPlaceholderText(/random input/i);
