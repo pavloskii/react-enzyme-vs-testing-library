@@ -1,8 +1,8 @@
 import React from "react";
-import { renderHook, act } from "@testing-library/react-hooks";
 import { act as _act } from "react-dom/test-utils";
-import { useCounter } from "../hooks/useCounter";
+import { renderHook, act } from "@testing-library/react-hooks";
 import { mount } from "enzyme";
+import { useCounter } from "../hooks/useCounter";
 
 //React Testing Library
 describe("useCounter (RTL)", () => {
