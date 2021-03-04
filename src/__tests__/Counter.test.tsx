@@ -1,6 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 import { render, fireEvent, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import Counter from "../components/Counter";
 
@@ -152,7 +153,7 @@ describe("Direct comparison", () => {
 
     const incrementButton = wrapper.getByRole("button", { name: /\+/i });
     const decrementButton = wrapper.getByText("-");
-    fireEvent.click(incrementButton);
+    userEvent.click(incrementButton); // https://github.com/testing-library/user-event/blob/master/src/click.js#L87-L103
     fireEvent.click(decrementButton);
 
     //You can use screen for the same methods (can put the rendering in beforeEach)

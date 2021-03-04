@@ -129,7 +129,7 @@ function renderHookEnzyme<THookProps, THookReturn>(
     initialProps?: THookProps;
   } = {}
 ) {
-  const result: { current: THookReturn } = { current: null };
+  const result: { current: THookReturn } = { current: null! };
 
   const HookWrapper: React.FC<THookProps> = (wrapperProps: THookProps) => {
     result.current = hook({ ...wrapperProps });
