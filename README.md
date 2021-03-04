@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Using both Enzyme and React Testing Library together
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
