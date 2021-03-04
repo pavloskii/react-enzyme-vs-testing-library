@@ -59,14 +59,15 @@ describe("useCounter (RTL)", () => {
 const setup = (counterProps?: Parameters<typeof useCounter>[0]) => {
   let result: {
     target: { count: number; increment: () => void; decrement: () => void };
-  };
+  } = { target: null! };
+
   const HookWrapper: React.FC = () => {
     result.target = useCounter(counterProps);
     return null;
   };
   const wrapper = mount(<HookWrapper />);
 
-  return { result: result!, wrapper };
+  return { result: result, wrapper };
 };
 
 describe("useCounter (Enzyme)", () => {
@@ -101,7 +102,11 @@ describe("useCounter (Enzyme)", () => {
   });
 
   it("the step can be changed", () => {
-    let result!: { count: number; increment: () => void; decrement: () => void };
+    let result!: {
+      count: number;
+      increment: () => void;
+      decrement: () => void;
+    };
     const HookWrapper: React.FC<{ step: number }> = ({ step }) => {
       result = useCounter({ step });
       return null;
