@@ -10,4 +10,5 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 ### Credits
 
 [Original Counter example from codesandbox](https://codesandbox.io/s/enzyme-vs-react-testing-library-zbi8h)
+
 [Kent C. Dodds' Epic React Dev](https://epicreact.dev)
